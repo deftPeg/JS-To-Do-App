@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap Icons cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- Link stylesheet (CSS file) -->
+    <link rel="stylesheet" href="./style.css">
+       
+    <title>To Do List App Js</title>
+</head>
+
+<body>
+    <!-- To Do Box Section -->
+    <div class="wrapper">
+        <div class="title">
+            <h1>To Do List</h1>
+            <img src="./Images/JStoDoAppImage.svg" alt="To Do List Image">
+        </div>
+
+        <div class="task-input">
+            <input type="text" placeholder="Add a New Task and Press Enter">
+        </div>
+
+        <!-- Filter Section -->
+        <div class="controls">
+            <div class="filters">
+                <span class="active" id="all">All</span>
+                <span id="pending">Pending</span>
+                <span id="completed">Completed</span>
+            </div>
+
+            <!-- Clear all Button -->
+            <button class="clear-btn">Clear All</button>
+        </div>
+    </div>
+
+    <!-- To Do Tasks List -->
+    <ul class="taskbox"></ul>
+  <!-- Link JavaScript file -->
+  <script src="./script.js" ></script> 
+</body>
+</html>
