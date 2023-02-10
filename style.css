@@ -16,31 +16,18 @@ body{
     color:#fff;
     background-color: plum;
 }
-.shape{
-    position:absolute;
-    bottom: 20%;
-    left: 10%;
-    z-index: -22;
-}
-
-.shape2{
-    position:absolute;
-    bottom: -20%;
-    right: 10%;
-    z-index: -22;
-}
 
 .wrapper{
-    max-width: 700px;
+    max-width: 40rem;
     background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 0.15rem solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 10rem;
     margin-bottom: 2rem;
-    border-radius: 7px;
-    padding: 28px 0 30px;
+    border-radius: 0.8rem;
+    padding: 2rem 0 3rem;
 }
 
 .title{
@@ -48,6 +35,55 @@ body{
     justify-content: space-between;
 }
 
+.title h1{
+    text-transform: uppercase;
+    margin-left: 3rem;
+    margin-top: 3rem;
+    color: rgb(16, 79, 120);
+}
+
 .title img {
     width: 20rem;
+    margin-top: -10rem;
+}
+
+.task-input{
+    position: relative;
+    height: 3rem;
+    padding: 0 3rem;
+}
+
+.task-input input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 0.15rem solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    padding: 0 1rem 0 2rem;
+}
+.task-input input:focus,
+.task-input input.active{
+    padding-left: 2rem;
+    border: 2px solid plum;
+
+}
+
+.task-input input::placeholder{
+    color:rgba(16, 79, 120, 0.5)
+
+}
+
+.controls,li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.controls{
+    padding: 18px 25px;
+    border-bottom: 1px solid rgba(16, 79, 120, 0.2);
 }
