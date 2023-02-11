@@ -24,7 +24,7 @@ body{
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
     margin: 0 auto;
-    margin-top: 10rem;
+    margin-top: 20rem;
     margin-bottom: 2rem;
     border-radius: 0.8rem;
     padding: 2rem 0 3rem;
@@ -84,6 +84,149 @@ body{
 }
 
 .controls{
-    padding: 18px 25px;
+    padding: 1.2rem 3.6rem;
     border-bottom: 1px solid rgba(16, 79, 120, 0.2);
+}
+
+.filter span{
+    margin: 0 10px;
+    font-size: 1rem;
+    color: #444;
+    cursor: pointer;
+    transition: 0.5s;
+    text-transform: capitalize;
+}
+
+.filter span:first-child{
+    margin-left: 0;
+}
+
+.filter span.active{
+    color: #fff;
+    background: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+    font-size: 0.8rem;
+    padding: 7px 13px;
+    border-radius: 5px;
+    letter-spacing: 0.3px;
+}
+
+.clear-btn{
+    background: rgb(156, 9, 97);
+    border: none;
+    outline: none;
+    opacity: 0.6;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 7px 13px;
+    border-radius: 5px;
+    letter-spacing: 0.05rem;
+    pointer-events: none;
+    transition: transform 0.25s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.clear-btn.active{
+    pointer-events: auto;
+    opacity: 0.9;
+}
+.clear-btn:active {
+    transform: scale(0.93);
+}
+
+.task-box{
+  margin-top: 20px;
+  margin-right: 5px;
+  padding: 0 20px 10px 25px;  
+}
+.task-box.overflow{
+    overflow-y: auto;
+    max-height: 300px;   
+}
+.task-box::-webkit-scrollbar{
+    width: 5px;   
+}
+.task-box::-webkit-scrollbar-track{
+    background-color: purple;
+    border-radius: 25px;
+}
+.task-box::-webkit-scrollbar-thumb{
+    background-color: #e6e6e6;
+    border-radius: 25px;
+}
+
+/* ------- All of these come fromm JavaScript Dom manipulation ------- */
+.task-box .task{
+    list-style: none;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(16, 79, 120, 0.2);
+}
+.task-box .task:last-child{
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+.task-box .task label{
+    display: flex;
+    align-items: flex-start;
+}
+.task label input{
+    margin-top: 0.5rem;
+    accent-color: #f1116b;
+}
+.task label p{
+    user-select: none;
+    margin-left: 0.8rem;
+    word-wrap: break-word;
+}
+.task label p.checked{
+    text-decoration: line-through;
+}
+.task-box .settings{
+    position: relative;
+}
+.settings :where(i, li){
+    cursor: pointer;
+}
+.settings .task-menu{
+    background: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+    position: absolute;
+    right: -5px;
+    bottom: -65px;
+    padding: 5px 0;
+    transform: scale(0);
+    transform-origin: top right;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+.task-box .task:last-child .task-menu{
+    bottom: 0;
+    transform-origin: bottom right;
+}
+.task-box .task:first-child .task-menu{
+    bottom: -65px;
+    transform-origin: top right;
+}
+.task-menu.show{
+    transform: scale(1);
+}
+.task-menu li{
+    height: 25px;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    padding: 17px 15px;
+    cursor: pointer;
+    justify-content: flex-start;
+}
+.task-menu li:last-child{
+    margin-bottom: 0;
+}
+.setting li:hover{
+    background-color: #cd9cf2;
+}
+.setting li i{
+    padding-right: 8px;
 }
