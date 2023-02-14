@@ -1,122 +1,162 @@
-// declare variables
-const taskInput = document.querySelector('.task-input input'),
-    filterMenu = document.querySelectorAll('.filters span'),
-    clearAll = document.querySelector('.clear-btn'),
-    taskBox = document.querySelector('.task-box');
+window.addEventListener('load', () => {
+    // get todos if any in local storage else empty array
+    // **** todos declared without const or let is a global variable and can be used outside function
+	todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-// declare edit state as false
-let editId, isEditTask = false;
+    // declaring variables for DOM manipulation
+	const nameInput = document.querySelector('#name');
+	const newTodoForm = document.querySelector('#new-todo-form');
 
-// get todo items from local storage
-todos = JSON.parse(localStorage.getItem('todo-list'));
+	const username = localStorage.getItem('username') || '';
 
-// make filter tab active or not
-filterMenu.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        document.querySelector('span.active').classList.remove('active');
-        btn.classList.add('active');
-        showTodo(btn.id)
-    }) 
-})
-// showTodo('all');
+	nameInput.value = username;
 
-const showTodo = (filter) => {
-    let liTag = "";
-    if (todos) {
-        todos.forEach((todo, id) =>{
-            let completed = todo.status == "completed" ? "checked" : "";
-            if(filter == todo.status || filter == "all") {
-                liTag += <li class="task">
-                    <label for='${id}'>
-                        <input onclick = "updateStatus(this)" type="checkbox" id="${id}" ${completed}>
-                        <p class = "${completed}">${todo.name}</p>
-                        
-                    </label>
-                            <div class="settings">
-                                <i class="bi bi-gear-fill" onclick = "showMenu(this)"></i>
-                                <ul class="task-menu">
-                                    <li onclick='editTask(${id}),"${todo.name}")'><i class="bi bi-pencil-square"></i>Edit</li>
-                                    <li onclick='deleteTask(${id}),"${filter}")'><i class="bi bi-trash-fill"></i>Delete</li>
-                                </ul>
-                        </div>
-                </li>;
-            }
-        })
-    }
-    taskBox.innerHTML = liTag || '<span>You do not have any tasks here</span>';
-    let checkTask = taskBox.querySelectorAll|('.task');
-    !checkTask.length 
-        ? clearAll.classList.remove('active') 
-        : clearAll.classList.add('active');
-    taskBox.offsetHeight >= 300
-        ? taskBox.classList.add('overflow')
-        : taskBox.classList.remove('overflow')
-}
-showTodo('all');
+    // listen for change in username. Set it in local storage
+	nameInput.addEventListener('change', (e) => {
+		localStorage.setItem('username', e.target.value);
+	})
 
-// function to show menu
-const showMenu = (selectedTask) => {
-    let menuDiv = selectedTask.parentElement.lastElementChild;
-    menuDiv.classList.add('show');
-    document.addEventListener('click' , (e) => {
-        if(e.target.tagName != "I" || e.target != selectedTask ){
-            menuDiv.classList.remove("show")
-        }
-    })
-}
+	newTodoForm.addEventListener('submit', e => {
+		e.preventDefault();
+        // get todo info according to name value in html file
+		const todo = {
+			content: e.target.elements.content.value,
+			category: e.target.elements.category.value,
+			done: false,
+			createdAt: new Date().getTime()
+		}
+        // add new todo to array of todos
+		todos.push(todo);
 
-// function to update status
-const updateStatus=(selectedTask) => {
-    let taskName = selectedTask.parentElement.lastElementChild;
-    if (selectedTask.checked) {
-        taskName.classList.add("checked");
-        todos[selectedTask.id].status = "completed";
-    } else {
-        taskName.classList.remove("checked");
-        todos[selectedTask.id].status = "pending";
-    }
-    localStorage.setItem("todo-list", JSON.stringify(todos))
-}
+        // turn todo into a JSON String and store in local storage
+		localStorage.setItem('todos', JSON.stringify(todos));
 
-// function to edit task
-const editTask = (taskID, textName) => {
-    editId = taskID;
-    isEditTask = true;
-    taskInput.value = textName;
-    taskInput.focus();
-    taskInput.classList.add("active");
-}
+		// Reset the form
+		e.target.reset();
 
-// function to delete list from todo
-const deleteTask = (deleteId, filter) => {
-    isEditTask = false;
-    todos.splice(deleteId, 1);
-    localStorage.setItem("todo-list", JSON.stringify(todos))
-    showTodo(filter)
-}
-
-// function to clear all
-clearAll.addEventListener('click', () => {
-    isEditTask = false;
-    todos.splice(0, todos.length);
-    localStorage.setItem("todo-list", JSON.stringify(todos))
-    showTodo();
+		DisplayTodos()
+	})
+// called at the end of event listener show it as soon as page is loaded
+	DisplayTodos()
 })
 
+// DISPLAY TO DO ITEM LIST ON SCREEN FUNCTION
+function DisplayTodos () {
+    // declare todo list element to push todos to
+	const todoList = document.querySelector('#todo-list');
 
-taskInput.addEventListener("keyup", (e) => {
-    let userTask = taskInput.value.trim();
-    if(e.key == "Enter" && userTask){
-        if(!isEditTask){
-            todos = !todos ? [] : todos;
-            let infoTask = {name: userTask, status:"pending"};
-            todos.push(infoTask)
-        }else {
-            isEditTask=false;
-            todos[editId].name = userTask
-        }
-        taskInput.value = "";
-        localStorage.setItem("todo-list", JSON.stringify(todos));
-        showTodo(document.querySelector("span.active").id)
-    }
-})
+    // clear all elements every time function is called
+	todoList.innerHTML = "";
+
+    // loop through each todo
+	todos.forEach(todo => {
+        // declare variable for todo item DOM manipulation
+		const todoItem = document.createElement('div');
+        // add class to item
+		todoItem.classList.add('todo-item');
+
+        // declare variables for each todo Item DOM manipulation (buttons etc...)
+		const label = document.createElement('label');
+		const input = document.createElement('input');
+		const span = document.createElement('span');
+		const content = document.createElement('div');
+		const actions = document.createElement('div');
+		const edit = document.createElement('button');
+		const deleteButton = document.createElement('button');
+
+		input.type = 'checkbox';
+		input.checked = todo.done;
+		span.classList.add('bubble');
+
+        // check if category is personal or business. Business is set as default
+		if (todo.category == 'personal') {
+			span.classList.add('personal');
+		} else {
+			span.classList.add('business');
+		}
+		content.classList.add('todo-content');
+		actions.classList.add('actions');
+		edit.classList.add('edit');
+		deleteButton.classList.add('delete');
+
+        // get the actual content of the todo
+		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
+		edit.innerHTML = 'Edit';
+		deleteButton.innerHTML = 'Delete';
+
+        // append all the elements
+		label.appendChild(input);
+		label.appendChild(span);
+		actions.appendChild(edit);
+		actions.appendChild(deleteButton);
+		todoItem.appendChild(label);
+		todoItem.appendChild(content);
+		todoItem.appendChild(actions);
+
+        // append new todo item to the list
+		todoList.appendChild(todoItem);
+
+        // if todo is checked add done as class name
+		if (todo.done) {
+			todoItem.classList.add('done');
+		}
+		
+        // add event listener for checked todo item
+		input.addEventListener('change', (e) => {
+			todo.done = e.target.checked;
+
+            // update the item in local storage
+			localStorage.setItem('todos', JSON.stringify(todos));
+
+            // check or uncheck the todo depending on previous state
+			if (todo.done) {
+				todoItem.classList.add('done');
+			} else {
+				todoItem.classList.remove('done');
+			}
+            // redisplay todos after change
+			DisplayTodos()
+
+		})
+
+        // EDIT TODO ITEM FUNCTION
+        // listen for a click event
+		edit.addEventListener('click', (e) => {
+			const input = content.querySelector('input');
+
+            // remove readonly to be able to edit
+			input.removeAttribute('readonly');
+
+            // highlight todo
+			input.focus();
+
+            // blur occurs if you click outside the todo and stops editing
+			input.addEventListener('blur', (e) => {
+				input.setAttribute('readonly', true);
+
+                // set todo content to new value
+				todo.content = e.target.value;
+
+                // update local storage with item change
+				localStorage.setItem('todos', JSON.stringify(todos));
+
+                // redisplay todos on screen
+				DisplayTodos()
+
+			})
+		})
+
+        // DELETE TODO ITEM FUNCTION
+		deleteButton.addEventListener('click', (e) => {
+            // filter the array of todos for all not equal to the clicked todo "t"
+			todos = todos.filter(t => t != todo);
+
+            // update the todo list in local storage
+			localStorage.setItem('todos', JSON.stringify(todos));
+            
+            // redisplay todos
+			DisplayTodos()
+		})
+
+	})
+}

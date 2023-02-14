@@ -4,46 +4,121 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript To Do List App</title>
 
-    <!-- Bootstrap Icons cdn -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Import CSS File -->
+    <link rel="stylesheet" href="./style.css" />
+    <!-- End of CSS Import -->
 
-    <!-- Link stylesheet (CSS file) -->
-    <link rel="stylesheet" href="./style.css">
-       
-    <title>To Do List App Js</title>
+    <!-- Import Fonts from Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<!-- End of Fonts -->
+
 </head>
 
+
 <body>
-    <!-- To Do Box Section -->
-    <div class="wrapper">
-        <div class="title">
-            <h1>To Do List</h1>
-            <img src="./Images/JStoDoAppImage.svg" alt="To Do List Image">
-        </div>
+    <!-- App Wrapper -->
+	<main class="app">
 
-        <div class="task-input">
-            <input type="text" placeholder="Add a New Task and Press Enter">
-        </div>
+		<!-- Greeting -->
+		<section class="greeting">
+            <h2 class="title" id="todoTitle">TO DO LIST:
+                <input type="text" id="name" placeholder="Your name here" /></h2>
+           
+            <img src="./Images/JStoDoAppImage.svg" alt="To Do List Image" id="todoImage">
+		</section>
 
-        <!-- Filter Section -->
-        <div class="controls">
-            <div class="filters">
-                <span class="active" id="all">All</span>
-                <span id="pending">Pending</span>
-                <span id="completed">Completed</span>
+		<!-- End of Greeting -->
+
+        
+		
+		<!-- New Todo -->
+		<section class="create-todo">
+			<h3>CREATE A TODO</h3>
+			<form id="new-todo-form">
+				<input 
+					type="text" 
+					placeholder="Enter your todo item here"
+					name="content"
+					id="content" />
+
+				<!-- Category section PERSONAL OR BUSINESS -->
+				<h3>PICK A CATEGORY</h3>
+				<div class="options">
+                    <label>
+						<input 
+                        type="radio" 
+                        name="category" 
+                        id="category2" 
+                        value="personal" />
+						<span class="bubble personal"></span>
+						<div>Personal</div>
+					</label>
+					<label>
+						<input 
+                        type="radio" 
+                        name="category" 
+                        id="category1" 
+                        value="business" /> 
+						<span class="bubble business"></span>
+						<div>Business</div>
+					</label>
+					
+				</div>
+                <!-- End of Category Section -->
+
+				<input type="submit" value="Add todo" />
+			</form>
+		</section>
+		<!-- End of New Todo -->
+
+		<!-- Todo List -->
+		<section class="todo-list">
+			<h3>TODO LIST</h3>
+			<div class="list" id="todo-list">
+                <!-- <div class="todo-item">
+                    <label>
+                        <input type="checkbox" />
+                        <span class = "bubble business"></span>
+                    </label>
+                
+                    <div class="todo-content">
+                        <input type="text" value="Make a video" readonly />
+                    </div>
+
+                    <div class="actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                    </div>
+                </div>
+
+                <div class="todo-item">
+                    <label>
+                        <input type="checkbox" />
+                        <span class = "bubble personal"></span>
+                    </label>
+                
+                    <div class="todo-content">
+                        <input type="text" value="Get milk" readonly />
+                    </div>
+
+                    <div class="actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                    </div>
+                </div> -->
             </div>
+		</section>
+		<!-- End of Todo List -->
 
-            <!-- Clear all Button -->
-            <button class="clear-btn">Clear All</button>
-        </div>
-
-    <!-- To Do Tasks List -->
-    <ul class="task-box">
-    </ul>
-
-    </div>
-  <!-- Link JavaScript file -->
-  <script src="./script.js" ></script> 
+	</main>
+	<!-- End of App Wrapper -->
+    
+    <!-- JS Import -->
+	<script src="./script.js"></script>
+	<!-- End of JS Import -->
 </body>
 </html>
