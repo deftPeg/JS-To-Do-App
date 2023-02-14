@@ -1,4 +1,3 @@
- 
 <!-- Title Description -->
 # JS-To-Do-App
 To Do application in Javascript with local storage
@@ -19,3 +18,20 @@ To Do application in Javascript with local storage
 
 <hr>
 
+
+<br>
+ <!-- Screenshot -->
+  <a href="https://deftpegjstodoapp.netlify.app/" target="_blank" rel="noreferrer"> <img align="right" src="Images/JStoDoAppScreenShot.png" alt="JS Todo App Home Screen" height="200"/> </a> 
+
+<br>
+<br>
+
+   <!-- Online link -->
+   <div name = "Online presence"> 
+<h2 align="left">👀 View online:</h2>
+<br>
+<a href="https://deftpegjstodoapp.netlify.app/" target="_blank" rel="noreferrer">
+Take me to the website, </a>
+or alternately, click on the image 👉
+
+</div>
